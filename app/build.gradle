@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0 rc3"
+
+    defaultConfig {
+        applicationId "com.farundorl.android.botchat"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-annotations:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.0'
+
+    compile files('../libraries/docomo-common-android-sdk-1.0.2.jar')
+    compile files('../libraries/docomo-dialogue-android-sdk-2.0.0.jar')
+    compile files('../libraries/jackson-annotations-2.2.3.jar')
+    compile files('../libraries/jackson-core-2.2.3.jar')
+    compile files('../libraries/jackson-databind-2.2.3.jar')
+}
