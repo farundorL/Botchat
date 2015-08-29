@@ -7,4 +7,6 @@
     <string name="drawer_timeline">タイムライン</string>
     <string name="drawer_account">アカウント設定</string>
     <string name="drawer_about">アプリについて</string>
+
+    <string name="api_key">API_KEY</string>
 </resources>
