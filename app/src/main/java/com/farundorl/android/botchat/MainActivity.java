@@ -1,14 +1,13 @@
 package com.farundorl.android.botchat;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -42,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDrawer() {
+        leftDrawer.setNavigationItemSelectedListener(menuItem -> {
+            selectItem(menuItem.getItemId());
+            return true;
+        });
+
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -51,25 +55,20 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
-        leftDrawer.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        return false;
-                    }
-                }
-        );
+
         drawer.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
     }
 
-    private void selectItem(int position) {
-        Toast.makeText(MainActivity.this, "position : " + position, Toast.LENGTH_SHORT).show();
+    private void selectItem(int id) {
+
+        Toast.makeText(MainActivity.this, "id : " + id, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
 }

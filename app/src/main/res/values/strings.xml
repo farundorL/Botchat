@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Botchat</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">close drawer</string>
+
+    <string name="drawer_timeline">タイムライン</string>
+    <string name="drawer_account">アカウント設定</string>
+    <string name="drawer_about">アプリについて</string>
 </resources>

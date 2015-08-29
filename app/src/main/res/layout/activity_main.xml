@@ -7,16 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <!--navigation view-->
-    <android.support.design.widget.NavigationView
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/background"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_items" />
-
      <!--main view-->
      <RelativeLayout
          android:layout_width="match_parent"
@@ -36,5 +26,14 @@
              android:text="Yo" />
 
      </RelativeLayout>
+
+    <!--navigation view-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/left_drawer"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_items" />
 
 </android.support.v4.widget.DrawerLayout>

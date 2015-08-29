@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/timeline"
-        android:title="タイムライン"/>
-    <item
-        android:id="@+id/about"
-        android:title="アプリについて"/>
-    <item
-        android:id="@+id/setting"
-        android:title="設定"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/timeline"
+            android:title="@string/drawer_timeline"
+            android:icon="@drawable/ic_chat"/>
+        <item
+            android:id="@+id/account"
+            android:title="@string/drawer_account"
+            android:icon="@drawable/ic_person"/>
+        <item
+            android:id="@+id/about"
+            android:title="@string/drawer_about"
+            android:icon="@drawable/ic_info"/>
+    </group>
 </menu>
