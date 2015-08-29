@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#EEE</color>
+
+    <color name="background_green">#86c166</color>
+    <color name="background_gray">#bfbfbf</color>
 </resources>

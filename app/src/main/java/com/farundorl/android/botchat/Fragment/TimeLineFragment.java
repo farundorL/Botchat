@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.farundorl.android.botchat.Adapter.TimeLineAdapter;
+import com.farundorl.android.botchat.Model.Message;
 import com.farundorl.android.botchat.R;
 
 import butterknife.Bind;
@@ -73,10 +75,11 @@ public class TimeLineFragment extends Fragment {
 
     private void initSubmit() {
         input.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                String message = input.getText().toString();
+            String message = input.getText().toString();
+
+            if (!TextUtils.isEmpty(message) && actionId == EditorInfo.IME_ACTION_SEND) {
                 sendDialogue(message);
-                mAdapter.add(message);
+                updateTimeLine(message, Message.MessageFrom.ME);
                 input.setText("");
                 return true;
             }
@@ -93,7 +96,7 @@ public class TimeLineFragment extends Fragment {
     private void sendDialogue(String message) {
         DialogueRequestParam param = new DialogueRequestParam();
         param.setUtt(message);
-        param.setContext(mResult == null ? "hogefugapiyo" : mResult.getContext());
+        param.setContext(mResult == null ? "" : mResult.getContext());
 
         subscriptions.add(
             Observable.just(param)
@@ -102,9 +105,9 @@ public class TimeLineFragment extends Fragment {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(result -> {
                         mResult = result;
-                        mAdapter.add(mResult.getUtt());
+                        updateTimeLine(mResult.getUtt(), Message.MessageFrom.BOT);
                     }, e -> {
-                        mAdapter.add(e.getMessage());
+                        updateTimeLine(e.getMessage(), Message.MessageFrom.BOT);
                     })
         );
 
@@ -121,4 +124,10 @@ public class TimeLineFragment extends Fragment {
             return Observable.error(new Throwable("なんでやろエラー", e.getCause()));
         }
     }
+
+    private void updateTimeLine(String message, Message.MessageFrom from) {
+        mAdapter.add(new Message(message, from));
+        recycler.scrollToPosition(mAdapter.getItemCount() - 1);
+    }
+
 }
