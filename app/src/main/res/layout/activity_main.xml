@@ -18,12 +18,11 @@
              android:layout_height="wrap_content"
              android:background="@color/primary" />
 
-         <TextView
+         <FrameLayout
+             android:id="@+id/container"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:layout_below="@+id/toolbar"
-             android:gravity="center"
-             android:text="Yo" />
+             android:layout_below="@id/toolbar"/>
 
      </RelativeLayout>
 

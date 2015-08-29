@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.farundorl.android.botchat.Fragment.TimeLineFragment;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -32,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initDrawer();
+
+        if(savedInstanceState == null) {
+            bindTimeline();
+        }
     }
 
     private void initToolbar() {
@@ -61,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectItem(int id) {
-
         Toast.makeText(MainActivity.this, "id : " + id, Toast.LENGTH_SHORT).show();
     }
 
@@ -69,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void bindTimeline() {
+        getFragmentManager().beginTransaction()
+                .add(R.id.container, TimeLineFragment.newInstance())
+                .commit();
     }
 
 }
