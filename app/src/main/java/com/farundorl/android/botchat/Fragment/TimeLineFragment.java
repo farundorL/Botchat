@@ -42,6 +42,8 @@ public class TimeLineFragment extends Fragment {
     private Dialogue mDialogue;
     private DialogueResultData mResult;
 
+    public static final String TAG = TimeLineFragment.class.getSimpleName();
+
     public static TimeLineFragment newInstance() {
         return new TimeLineFragment();
     }

@@ -1,5 +1,6 @@
 package com.farundorl.android.botchat;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
+import com.farundorl.android.botchat.Fragment.AccountFragment;
 import com.farundorl.android.botchat.Fragment.TimeLineFragment;
 
 import butterknife.Bind;
@@ -70,7 +71,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectItem(int id) {
-        Toast.makeText(MainActivity.this, "id : " + id, Toast.LENGTH_SHORT).show();
+        switch(id) {
+            case R.id.timeline:
+                changeFragment(TimeLineFragment.newInstance(), TimeLineFragment.TAG);
+                break;
+            case R.id.account:
+                changeFragment(AccountFragment.newInstance(), AccountFragment.TAG);
+                break;
+            case R.id.about:
+                break;
+        }
+        drawer.closeDrawers();
     }
 
     @Override
@@ -81,8 +92,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void bindTimeline() {
         getFragmentManager().beginTransaction()
-                .add(R.id.container, TimeLineFragment.newInstance())
+                .add(R.id.container, TimeLineFragment.newInstance(), TimeLineFragment.TAG)
                 .commit();
+    }
+
+    public void changeFragment(Fragment fragment, String tag) {
+        if(getFragmentManager().findFragmentByTag(tag) == null) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragment, tag)
+                    .commit();
+        }
     }
 
     private void hideKeyboard() {
