@@ -11,4 +11,9 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="Hint">
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
+
 </resources>

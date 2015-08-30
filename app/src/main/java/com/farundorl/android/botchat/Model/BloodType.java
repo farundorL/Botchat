@@ -16,4 +16,12 @@ public enum BloodType {
         return name;
     }
 
+    public static BloodType valueOfName(String name) {
+        for (BloodType bloodType : values()) {
+            if (bloodType.name.equals(name)) {
+                return bloodType;
+            }
+        }
+        throw new IllegalArgumentException("no such enum object for the id: " + name);
+    }
 }

@@ -14,4 +14,13 @@ public enum Gender {
         return name;
     }
 
+    public static Gender valueOfName(String name) {
+        for (Gender gender : values()) {
+            if (gender.name.equals(name)) {
+                return gender;
+            }
+        }
+        throw new IllegalArgumentException("no such enum object for the id: " + name);
+    }
+
 }

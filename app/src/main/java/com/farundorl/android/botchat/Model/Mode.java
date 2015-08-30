@@ -19,4 +19,13 @@ public enum Mode {
     public String getCode() {
         return code;
     }
+
+    public static Mode valueOfName(String name) {
+        for (Mode mode : values()) {
+            if (mode.name.equals(name)) {
+                return mode;
+            }
+        }
+        throw new IllegalArgumentException("no such enum object for the id: " + name);
+    }
 }

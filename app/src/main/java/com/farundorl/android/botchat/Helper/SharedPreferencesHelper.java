@@ -48,7 +48,7 @@ public class SharedPreferencesHelper {
     }
 
     public Gender getGender() {
-        return Gender.valueOf(mPref.getString(GENDER, ""));
+        return Gender.valueOfName(mPref.getString(GENDER, Gender.MEN.toString()));
     }
 
     public void setBloodType(BloodType bloodType) {
@@ -56,7 +56,7 @@ public class SharedPreferencesHelper {
     }
 
     public BloodType getBloodType() {
-        return BloodType.valueOf(mPref.getString(BLOOD_TYPE, ""));
+        return BloodType.valueOfName(mPref.getString(BLOOD_TYPE, BloodType.A.toString()));
     }
 
     public void setBirthday(Date birthday) {
@@ -80,7 +80,7 @@ public class SharedPreferencesHelper {
     }
 
     public Constellations getConstellations() {
-        return Constellations.valueOf(mPref.getString(CONSTELLATIONS, ""));
+        return Constellations.valueOfName(mPref.getString(CONSTELLATIONS, Constellations.ARIES.toString()));
     }
 
     public void setPlace(Place place) {
@@ -88,7 +88,7 @@ public class SharedPreferencesHelper {
     }
 
     public Place getPlace() {
-        return Place.valueOf(mPref.getString(PLACE, ""));
+        return Place.valueOfName(mPref.getString(PLACE, Place.AREA_53.toString()));
     }
 
     public void setMode(Mode mode) {
@@ -96,7 +96,7 @@ public class SharedPreferencesHelper {
     }
 
     public Mode getMode() {
-        return Mode.valueOf(mPref.getString(MODE, ""));
+        return Mode.valueOfName(mPref.getString(MODE, Mode.DIALOG.getName()));
     }
 
     public void setCharacter(Character character) {
@@ -104,7 +104,7 @@ public class SharedPreferencesHelper {
     }
 
     public Character getCharacter() {
-        return Character.valueOf(mPref.getString(CHARACTER, ""));
+        return Character.valueOfName(mPref.getString(CHARACTER, Character.DEFAULT.getName()));
     }
 
 }

@@ -1,42 +1,147 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="8dp"
     tools:context="com.farundorl.android.botchat.Fragment.AccountFragment">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/name"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_hint"/>
-    </android.support.design.widget.TextInputLayout>
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_hint" />
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/name_yomi"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name_yomi_hint"/>
-    </android.support.design.widget.TextInputLayout>
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <EditText
+                android:id="@+id/name_yomi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_yomi_hint"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <!-- gender -->
+        <!-- gender -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_hint"
+            android:paddingTop="8dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            style="@style/Hint">
+            <requestFocus/>
+        </TextView>
+        <RadioGroup
+            android:id="@+id/gender_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" />
 
-    <!-- blood type -->
+        <!-- blood type -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/blood_type_hint"
+            android:paddingTop="8dp"
+            style="@style/Hint" />
+        <Spinner
+            android:id="@+id/blood_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp" />
 
-    <!-- birthday -->
+        <!-- birthday -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <EditText
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/birthday_hint"
+                android:clickable="true" />
+        </android.support.design.widget.TextInputLayout>
 
-    <!-- 星座 -->
+        <!-- 星座 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/constellations_hint"
+            android:paddingTop="8dp"
+            style="@style/Hint" />
+        <Spinner
+            android:id="@+id/constellations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp" />
 
-    <!-- 場所 -->
+        <!-- 場所 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/place_hint"
+            android:paddingTop="8dp"
+            style="@style/Hint" />
+        <Spinner
+            android:id="@+id/place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp" />
 
-    <!-- モード -->
+        <!-- モード -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mode_hint"
+            android:paddingTop="8dp"
+            style="@style/Hint" />
+        <RadioGroup
+            android:id="@+id/mode_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" />
 
-    <!-- キャラクタ -->
+        <!-- キャラクタ -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/character_hint"
+            android:paddingTop="8dp"
+            style="@style/Hint" />
+        <RadioGroup
+            android:id="@+id/character_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

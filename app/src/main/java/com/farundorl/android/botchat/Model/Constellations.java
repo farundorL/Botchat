@@ -24,4 +24,13 @@ public enum Constellations {
         return name;
     }
 
+    public static Constellations valueOfName(String name) {
+        for (Constellations constellations : values()) {
+            if (constellations.name.equals(name)) {
+                return constellations;
+            }
+        }
+        throw new IllegalArgumentException("no such enum object for the id: " + name);
+    }
+
 }

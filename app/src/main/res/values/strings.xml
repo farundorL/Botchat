@@ -12,4 +12,11 @@
 
     <string name="name_hint">ニックネーム</string>
     <string name="name_yomi_hint">ニックネーム（ヨミカタ）</string>
+    <string name="gender_hint">性別</string>
+    <string name="blood_type_hint">血液型</string>
+    <string name="birthday_hint">生年月日</string>
+    <string name="constellations_hint">星座</string>
+    <string name="place_hint">場所</string>
+    <string name="mode_hint">モード</string>
+    <string name="character_hint">キャラクター</string>
 </resources>
