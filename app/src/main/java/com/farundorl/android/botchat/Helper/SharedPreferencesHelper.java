@@ -8,6 +8,8 @@ import com.farundorl.android.botchat.Model.Character;
 
 import java.util.Date;
 
+import jp.ne.docomo.smt.dev.dialogue.param.DialogueRequestParam;
+
 public class SharedPreferencesHelper {
 
     private static final String NICK_NAME = "nick_name";
@@ -106,5 +108,7 @@ public class SharedPreferencesHelper {
     public Character getCharacter() {
         return Character.valueOfName(mPref.getString(CHARACTER, Character.DEFAULT.getName()));
     }
+
+    //TODO:DialogueRequestParamを返す
 
 }

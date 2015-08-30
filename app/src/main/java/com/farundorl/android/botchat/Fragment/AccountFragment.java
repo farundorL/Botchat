@@ -71,6 +71,8 @@ public class AccountFragment extends Fragment {
         initMode();
         initCharacter();
 
+        //TODO:入力チェック
+
         return view;
     }
 
@@ -149,6 +151,7 @@ public class AccountFragment extends Fragment {
         birthday.setOnClickListener(v -> {
             Toast.makeText(getActivity(), "でーとぴっかー！", Toast.LENGTH_SHORT).show();
         });
+        //TODO:DatePickerを表示
     }
 
     private void initConstellations() {
