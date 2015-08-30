@@ -64,7 +64,7 @@ public class SharedPreferencesHelper {
     }
 
     public Date getBirthday() {
-        return new Date(mPref.getLong(BIRTHDAY, 0));
+        return new Date(mPref.getLong(BIRTHDAY, new Date().getTime()));
     }
 
     public void setAge(int age) {
