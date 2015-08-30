@@ -1,5 +1,6 @@
 package com.farundorl.android.botchat;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.farundorl.android.botchat.Fragment.TimeLineFragment;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                hideKeyboard();
             }
         };
 
@@ -80,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .add(R.id.container, TimeLineFragment.newInstance())
                 .commit();
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 }
