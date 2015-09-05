@@ -1,21 +1,23 @@
 package com.farundorl.android.botchat.Fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.farundorl.android.botchat.Helper.SharedPreferencesHelper;
 import com.farundorl.android.botchat.Helper.ValidationHelper;
@@ -27,11 +29,13 @@ import com.farundorl.android.botchat.Model.Mode;
 import com.farundorl.android.botchat.Model.Place;
 import com.farundorl.android.botchat.R;
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.functions.Action1;
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.name)
     EditText name;
@@ -57,6 +61,7 @@ public class AccountFragment extends Fragment {
     TextInputLayout nameYomiLayout;
 
     private SharedPreferencesHelper mPref;
+    private Calendar mBirthday;
 
     public static final String TAG = AccountFragment.class.getSimpleName();
 
@@ -175,11 +180,28 @@ public class AccountFragment extends Fragment {
     }
 
     private void initBirthday() {
-        birthday.setText(mPref.getBirthday().toString());
+        mBirthday = Calendar.getInstance();
+        mBirthday.setTime(mPref.getBirthday());
         birthday.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "でーとぴっかー！", Toast.LENGTH_SHORT).show();
+            int year = mBirthday.get(Calendar.YEAR);
+            int month = mBirthday.get(Calendar.MONTH);
+            int day = mBirthday.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+            dialog.show();
         });
-        //TODO:DatePickerを表示
+        updateBirthay();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        mBirthday.set(year, monthOfYear, dayOfMonth);
+        mPref.setBirthday(mBirthday.getTime());
+        updateBirthay();
+    }
+
+    private void updateBirthay() {
+        birthday.setText(DateFormat.format(getString(R.string.format_birthday), mBirthday));
     }
 
     private void initConstellations() {
