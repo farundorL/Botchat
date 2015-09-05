@@ -19,4 +19,7 @@
     <string name="place_hint">場所</string>
     <string name="mode_hint">モード</string>
     <string name="character_hint">キャラクター</string>
+
+    <string name="error_name">10文字以下のひらがなカタカナ漢字英数字にしてください</string>
+    <string name="error_name_yomi">20文字以下のカタカナにしてください</string>
 </resources>

@@ -2,6 +2,7 @@ package com.farundorl.android.botchat.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,8 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.farundorl.android.botchat.Helper.SharedPreferencesHelper;
-import com.farundorl.android.botchat.Model.*;
+import com.farundorl.android.botchat.Helper.ValidationHelper;
+import com.farundorl.android.botchat.Model.BloodType;
 import com.farundorl.android.botchat.Model.Character;
+import com.farundorl.android.botchat.Model.Constellations;
+import com.farundorl.android.botchat.Model.Gender;
+import com.farundorl.android.botchat.Model.Mode;
+import com.farundorl.android.botchat.Model.Place;
 import com.farundorl.android.botchat.R;
 
 import butterknife.Bind;
@@ -45,6 +51,10 @@ public class AccountFragment extends Fragment {
     RadioGroup modeRadio;
     @Bind(R.id.character_radio)
     RadioGroup characterRadio;
+    @Bind(R.id.name_layout)
+    TextInputLayout nameLayout;
+    @Bind(R.id.name_yomi_layout)
+    TextInputLayout nameYomiLayout;
 
     private SharedPreferencesHelper mPref;
 
@@ -71,8 +81,6 @@ public class AccountFragment extends Fragment {
         initMode();
         initCharacter();
 
-        //TODO:入力チェック
-
         return view;
     }
 
@@ -85,23 +93,43 @@ public class AccountFragment extends Fragment {
     private void initNickName() {
         name.setText(mPref.getNickName());
         nameYomi.setText(mPref.getNickNameYomi());
-        name.addTextChangedListener(prefTextWatcher(mPref::setNickName));
-        nameYomi.addTextChangedListener(prefTextWatcher(mPref::setNickNameYomi));
+        name.addTextChangedListener(prefTextWatcher(this::checkNickName));
+        nameYomi.addTextChangedListener(prefTextWatcher(this::checkNickNameYomi));
     }
 
     private TextWatcher prefTextWatcher(Action1<String> changed) {
         return new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 changed.call(s.toString());
             }
         };
+    }
+
+    private void checkNickName(String nickname) {
+        boolean valid = ValidationHelper.checkNickName(nickname);
+        nameLayout.setError(getString(R.string.error_name));
+        nameLayout.setErrorEnabled(!valid);
+        if(valid) {
+            mPref.setNickName(nickname);
+        }
+    }
+
+    private void checkNickNameYomi(String nickname) {
+        boolean valid = ValidationHelper.checkNickNameYomi(nickname);
+        nameYomiLayout.setError(getString(R.string.error_name_yomi));
+        nameYomiLayout.setErrorEnabled(!valid);
+        if(valid) {
+            mPref.setNickNameYomi(nickname);
+        }
     }
 
     private void initGenderRadio() {
@@ -126,7 +154,7 @@ public class AccountFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (BloodType type : BloodType.values()) {
-            if(type == mPref.getBloodType()) {
+            if (type == mPref.getBloodType()) {
                 selection = adapter.getCount();
             }
             adapter.add(type.toString());
@@ -159,7 +187,7 @@ public class AccountFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (Constellations star : Constellations.values()) {
-            if(star == mPref.getConstellations()) {
+            if (star == mPref.getConstellations()) {
                 selection = adapter.getCount();
             }
             adapter.add(star.toString());
@@ -174,7 +202,8 @@ public class AccountFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
@@ -183,7 +212,7 @@ public class AccountFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (Place location : Place.values()) {
-            if(location == mPref.getPlace()) {
+            if (location == mPref.getPlace()) {
                 selection = adapter.getCount();
             }
             adapter.add(location.toString());
@@ -209,7 +238,7 @@ public class AccountFragment extends Fragment {
             RadioButton button = new RadioButton(getActivity());
             button.setText(mode.getName());
             modeRadio.addView(button);
-            if(mode == mPref.getMode()) {
+            if (mode == mPref.getMode()) {
                 id = button.getId();
             }
         }
@@ -226,7 +255,7 @@ public class AccountFragment extends Fragment {
             RadioButton button = new RadioButton(getActivity());
             button.setText(character.getName());
             characterRadio.addView(button);
-            if(character == mPref.getCharacter()) {
+            if (character == mPref.getCharacter()) {
                 id = button.getId();
             }
         }
