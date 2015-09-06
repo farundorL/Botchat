@@ -121,7 +121,7 @@ public class SharedPreferencesHelper {
         birthday.setTime(getBirthday());
         param.setAge(Calendar.getInstance().get(Calendar.YEAR) - birthday.get(Calendar.YEAR));
         param.setBirthdateY(birthday.get(Calendar.YEAR));
-        param.setBirthdateM(birthday.get(Calendar.MONTH));
+        param.setBirthdateM(birthday.get(Calendar.MONTH) + 1);
         param.setBirthdateD(birthday.get(Calendar.DAY_OF_MONTH));
 
         param.setConstellations(getConstellations().toString());
