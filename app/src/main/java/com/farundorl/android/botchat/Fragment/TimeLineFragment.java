@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.farundorl.android.botchat.Adapter.TimeLineAdapter;
+import com.farundorl.android.botchat.Helper.SharedPreferencesHelper;
 import com.farundorl.android.botchat.Model.Message;
 import com.farundorl.android.botchat.R;
 
@@ -41,6 +42,7 @@ public class TimeLineFragment extends Fragment {
     private TimeLineAdapter mAdapter;
     private Dialogue mDialogue;
     private DialogueResultData mResult;
+    private SharedPreferencesHelper mPrefs;
 
     public static final String TAG = TimeLineFragment.class.getSimpleName();
 
@@ -93,10 +95,11 @@ public class TimeLineFragment extends Fragment {
         AuthApiKey.initializeAuth(getString(R.string.api_key));
         mDialogue = new Dialogue();
         subscriptions = new CompositeSubscription();
+        mPrefs = new SharedPreferencesHelper(getActivity());
     }
 
     private void sendDialogue(String message) {
-        DialogueRequestParam param = new DialogueRequestParam();
+        DialogueRequestParam param = mPrefs.getDialogueParam();
         param.setUtt(message);
         param.setContext(mResult == null ? "" : mResult.getContext());
 

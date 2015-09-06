@@ -1,19 +1,19 @@
 package com.farundorl.android.botchat.Model;
 
 public enum Character {
-    DEFAULT("", "デフォルト"),
-    NANIWA("20", "関西弁"),
-    BABY("30", "赤ちゃん");
+    DEFAULT(0, "デフォルト"),
+    NANIWA(20, "関西弁"),
+    BABY(30, "赤ちゃん");
 
-    private final String code;
+    private final int code;
     private final String name;
 
-    Character(String code, String name) {
+    Character(int code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 

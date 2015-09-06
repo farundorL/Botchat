@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.farundorl.android.botchat.Model.*;
 import com.farundorl.android.botchat.Model.Character;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import jp.ne.docomo.smt.dev.dialogue.param.DialogueRequestParam;
@@ -109,6 +110,30 @@ public class SharedPreferencesHelper {
         return Character.valueOfName(mPref.getString(CHARACTER, Character.DEFAULT.getName()));
     }
 
-    //TODO:DialogueRequestParamを返す
+    public DialogueRequestParam getDialogueParam() {
+        DialogueRequestParam param = new DialogueRequestParam();
+
+        param.setNickname(getNickName());
+        param.setNickname_y(getNickNameYomi());
+        param.setBloodtype(getBloodType().toString());
+
+        Calendar birthday = Calendar.getInstance();
+        birthday.setTime(getBirthday());
+        param.setAge(Calendar.getInstance().get(Calendar.YEAR) - birthday.get(Calendar.YEAR));
+        param.setBirthdateY(birthday.get(Calendar.YEAR));
+        param.setBirthdateM(birthday.get(Calendar.MONTH));
+        param.setBirthdateD(birthday.get(Calendar.DAY_OF_MONTH));
+
+        param.setConstellations(getConstellations().toString());
+        param.setPlace(getPlace().toString());
+        param.setMode(getMode().getCode());
+
+        int character = getCharacter().getCode();
+        if(character != 0) {
+            param.setCharacter(character);
+        }
+
+        return param;
+    }
 
 }
