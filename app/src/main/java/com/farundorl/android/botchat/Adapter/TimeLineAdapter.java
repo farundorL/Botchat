@@ -1,5 +1,7 @@
 package com.farundorl.android.botchat.Adapter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,7 +16,7 @@ import com.farundorl.android.botchat.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeLineAdapter extends RecyclerView.Adapter {
+public class TimeLineAdapter extends RecyclerView.Adapter implements Parcelable {
 
     private List<Message> timeline;
 
@@ -30,6 +32,10 @@ public class TimeLineAdapter extends RecyclerView.Adapter {
     public void addAll(List<Message> items) {
         timeline.addAll(items);
         notifyDataSetChanged();
+    }
+
+    public List<Message> get() {
+        return timeline;
     }
 
     public void clear() {
@@ -70,4 +76,27 @@ public class TimeLineAdapter extends RecyclerView.Adapter {
 
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(timeline);
+    }
+
+    protected TimeLineAdapter(Parcel in) {
+        this.timeline = in.createTypedArrayList(Message.CREATOR);
+    }
+
+    public static final Parcelable.Creator<TimeLineAdapter> CREATOR = new Parcelable.Creator<TimeLineAdapter>() {
+        public TimeLineAdapter createFromParcel(Parcel source) {
+            return new TimeLineAdapter(source);
+        }
+
+        public TimeLineAdapter[] newArray(int size) {
+            return new TimeLineAdapter[size];
+        }
+    };
 }

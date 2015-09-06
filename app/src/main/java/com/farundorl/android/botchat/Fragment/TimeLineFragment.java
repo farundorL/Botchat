@@ -2,6 +2,7 @@ package com.farundorl.android.botchat.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -20,6 +21,8 @@ import com.farundorl.android.botchat.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import icepick.Icepick;
+import icepick.State;
 import jp.ne.docomo.smt.dev.common.exception.SdkException;
 import jp.ne.docomo.smt.dev.common.exception.ServerException;
 import jp.ne.docomo.smt.dev.common.http.AuthApiKey;
@@ -38,8 +41,10 @@ public class TimeLineFragment extends Fragment {
     @Bind(R.id.input)
     EditText input;
 
+    @State
+    TimeLineAdapter mAdapter;
+
     private CompositeSubscription subscriptions;
-    private TimeLineAdapter mAdapter;
     private Dialogue mDialogue;
     private DialogueResultData mResult;
     private SharedPreferencesHelper mPrefs;
@@ -48,6 +53,11 @@ public class TimeLineFragment extends Fragment {
 
     public static TimeLineFragment newInstance() {
         return new TimeLineFragment();
+    }
+
+    @Override public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
     }
 
     @Override
@@ -71,8 +81,13 @@ public class TimeLineFragment extends Fragment {
         subscriptions.unsubscribe();
     }
 
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
+
     private void initRecycler() {
-        mAdapter = new TimeLineAdapter();
+        mAdapter = (mAdapter == null) ? new TimeLineAdapter() : mAdapter;
         recycler.setAdapter(mAdapter);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -104,16 +119,16 @@ public class TimeLineFragment extends Fragment {
         param.setContext(mResult == null ? "" : mResult.getContext());
 
         subscriptions.add(
-            Observable.just(param)
-                    .observeOn(Schedulers.newThread())
-                    .flatMap(this::requestDialogue)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(result -> {
-                        mResult = result;
-                        updateTimeLine(mResult.getUtt(), Message.MessageFrom.BOT);
-                    }, e -> {
-                        updateTimeLine(e.getMessage(), Message.MessageFrom.BOT);
-                    })
+                Observable.just(param)
+                        .observeOn(Schedulers.newThread())
+                        .flatMap(this::requestDialogue)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(result -> {
+                            mResult = result;
+                            updateTimeLine(mResult.getUtt(), Message.MessageFrom.BOT);
+                        }, e -> {
+                            Snackbar.make(recycler, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                        })
         );
 
     }
@@ -122,11 +137,11 @@ public class TimeLineFragment extends Fragment {
         try {
             return Observable.just(mDialogue.request(param));
         } catch (SdkException e) {
-            return Observable.error(new Throwable("SDKエラー", e.getCause()));
+            return Observable.error(new Throwable(getString(R.string.error_sdk), e.getCause()));
         } catch (ServerException e) {
-            return Observable.error(new Throwable("サーバーエラー", e.getCause()));
+            return Observable.error(new Throwable(getString(R.string.error_server), e.getCause()));
         } catch (Exception e) {
-            return Observable.error(new Throwable("なんでやろエラー", e.getCause()));
+            return Observable.error(new Throwable(getString(R.string.error), e.getCause()));
         }
     }
 

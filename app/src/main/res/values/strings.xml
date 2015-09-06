@@ -22,6 +22,9 @@
 
     <string name="error_name">10文字以下のひらがなカタカナ漢字英数字にしてください</string>
     <string name="error_name_yomi">20文字以下のカタカナにしてください</string>
+    <string name="error_sdk">SDKエラー</string>
+    <string name="error_server">サーバーエラー</string>
+    <string name="error">なんでやろ、エラー</string>
 
     <string name="format_birthday">yyyy年MM月dd日</string>
 </resources>
