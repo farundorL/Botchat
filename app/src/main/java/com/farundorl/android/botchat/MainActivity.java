@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.farundorl.android.botchat.Fragment.AboutFragment;
 import com.farundorl.android.botchat.Fragment.AccountFragment;
 import com.farundorl.android.botchat.Fragment.TimeLineFragment;
 
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(AccountFragment.newInstance(), AccountFragment.TAG);
                 break;
             case R.id.about:
+                changeFragment(AboutFragment.newInstance(), AboutFragment.TAG);
                 break;
         }
         drawer.closeDrawers();
